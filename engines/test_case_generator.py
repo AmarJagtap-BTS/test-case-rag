@@ -108,7 +108,7 @@ Business Rules:
         # Check if parallel generation is enabled
         if Config.USE_PARALLEL_GENERATION:
             try:
-                print("🚀 Using parallel batch generation...")
+                print(" Using parallel batch generation...")
                 return self._generate_with_parallel_batches(
                     requirement_text, 
                     source_document, 
@@ -117,8 +117,8 @@ Business Rules:
                     num_test_cases
                 )
             except Exception as e:
-                print(f"⚠️ Parallel generation failed: {e}")
-                print("🔄 Falling back to single request generation...")
+                print(f"Parallel generation failed: {e}")
+                print(" Falling back to single request generation...")
                 # Fall through to single request method
         
         # Single request generation (original method)
@@ -147,7 +147,7 @@ Business Rules:
         distribution = calculate_test_distribution(num_test_cases)
         
         # Debug: Print distribution
-        print(f"\n🔍 DEBUG - Test Distribution:")
+        print(f"\n DEBUG - Test Distribution:")
         print(f"   Total requested: {num_test_cases}")
         print(f"   Positive: {distribution['positive']}")
         print(f"   Negative: {distribution['negative']}")
@@ -173,7 +173,7 @@ Business Rules:
             )
             system_prompt = enhanced_prompts["system"]
             user_prompt = enhanced_prompts["user"]
-            print(f"🔍 DEBUG - Using CONTEXT ENGINEERING")
+            print(f" DEBUG - Using CONTEXT ENGINEERING")
         else:
             # Use basic prompts with dynamic test case counts
             system_prompt = self.prompts["test_case_generation"]["system"]
@@ -182,7 +182,7 @@ Business Rules:
                 num_test_cases=num_test_cases,
                 test_distribution=distribution["distribution_string"]
             )
-            print(f"🔍 DEBUG - Using BASIC PROMPTS")
+            print(f" DEBUG - Using BASIC PROMPTS")
         
         try:
             # Call Azure OpenAI with optimized settings
@@ -192,7 +192,7 @@ Business Rules:
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_prompt}
                 ],
-                temperature=0.2,  # Reduced from 0.3 for faster, more deterministic responses
+                temperature=0.3,  # Reduced from 0.3 for faster, more deterministic responses
                 max_tokens=12000,  # Reduced from 16000 - sufficient for most cases
                 timeout=30  # 30 second timeout for faster failure detection
             )
@@ -200,8 +200,8 @@ Business Rules:
             # Check if response was truncated
             finish_reason = response.choices[0].finish_reason
             if finish_reason == "length":
-                print("⚠️ WARNING: Response was truncated due to token limit")
-                print("🔧 This may result in incomplete JSON. Consider reducing complexity or splitting the request.")
+                print(" WARNING: Response was truncated due to token limit")
+                print(" This may result in incomplete JSON. Consider reducing complexity or splitting the request.")
             
             # Parse response
             content = response.choices[0].message.content.strip() if response.choices[0].message.content else ""

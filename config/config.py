@@ -30,11 +30,11 @@ class Config:
     # Hybrid Scoring Weights (Semantic + LLM)
     # Semantic weight: Embedding-based similarity (fast, reliable for exact matches)
     # LLM weight: Context-based similarity (catches semantic equivalence)
-    SEMANTIC_WEIGHT: float = float(os.getenv("SEMANTIC_WEIGHT", "0.80"))  # 80% - Increased for speed
-    LLM_WEIGHT: float = float(os.getenv("LLM_WEIGHT", "0.20"))  # 20% - Reduced for speed
+    SEMANTIC_WEIGHT: float = float(os.getenv("SEMANTIC_WEIGHT", "0.60"))  # 80% - Increased for speed
+    LLM_WEIGHT: float = float(os.getenv("LLM_WEIGHT", "0.40"))  # 20% - Reduced for speed
     
     # RAG Configuration
-    RAG_TOP_K: int = int(os.getenv("RAG_TOP_K", "5"))  # Reduced from 10 to 5 for faster retrieval
+    RAG_TOP_K: int = int(os.getenv("RAG_TOP_K", "10"))  # Reduced from 10 to 5 for faster retrieval
     
     # Test Case Generation Configuration
     USE_PARALLEL_GENERATION: bool = os.getenv("USE_PARALLEL_GENERATION", "true").lower() == "true"  # Enable parallel
