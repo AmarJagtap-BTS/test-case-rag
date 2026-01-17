@@ -193,7 +193,7 @@ Business Rules:
                     {"role": "user", "content": user_prompt}
                 ],
                 temperature=0.3,  # Reduced from 0.3 for faster, more deterministic responses
-                max_tokens=12000,  # Reduced from 16000 - sufficient for most cases
+                max_tokens=16000,  # Reduced from 16000 - sufficient for most cases
                 timeout=30  # 30 second timeout for faster failure detection
             )
             
@@ -672,7 +672,7 @@ Business Rules:
         # Build focused prompt
         system_prompt = self.prompts["test_case_generation"]["system"]
         
-        # Create batch-specific user prompt
+        # Create batch-specific user prompt with explicit title requirement
         batch_prompt = f"""
 Based on the following requirement, generate {count} test cases focusing SPECIFICALLY on: {focus}
 
@@ -683,6 +683,12 @@ Focus Area: {focus}
 What to test: {description}
 
 Generate ONLY {count} test cases that cover {focus}.
+
+CRITICAL REQUIREMENTS:
+1. Each test case MUST have a clear, descriptive "title" field (REQUIRED - cannot be empty, null, or "Untitled")
+2. Title should describe the specific scenario being tested
+3. Example title format: "Verify [description] with [specific scenario]"
+
 Follow all the same formatting rules as before.
 
 Return ONLY a valid JSON array starting with [ and ending with ].
@@ -731,9 +737,18 @@ NO markdown, NO explanations, JUST the JSON array.
                 content = self._clean_json_content(content)
                 test_cases_data = json.loads(content)
             
-            # Convert to TestCase objects
+            # Convert to TestCase objects with title validation
             test_cases = []
-            for tc_data in test_cases_data:
+            for idx, tc_data in enumerate(test_cases_data):
+                # Validate and fix title before parsing
+                if not tc_data.get("title") or tc_data["title"].strip() == "" or tc_data["title"].lower() == "untitled" or "untitled" in tc_data["title"].lower():
+                    # Generate a descriptive title from description or focus
+                    if tc_data.get("description"):
+                        tc_data["title"] = f"Verify {focus.replace(' scenarios', '')} - {tc_data['description'][:60]}"
+                    else:
+                        tc_data["title"] = f"Verify {focus.replace(' scenarios', '')} - Test Case {idx + 1}"
+                    print(f"⚠️ Fixed missing/untitled title: {tc_data['title']}")
+                
                 tc = parse_test_case_json(tc_data)
                 if source_document:
                     tc.source_document = source_document
