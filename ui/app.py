@@ -195,7 +195,16 @@ def main():
                     output_path,
                     format="excel"
                 )
-                st.success(f"✅ Exported to {output_path}")
+                # Provide download button
+                with open(output_path, "rb") as file:
+                    st.download_button(
+                        label="⬇️ Download Excel File",
+                        data=file.read(),
+                        file_name=os.path.basename(output_path),
+                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        use_container_width=True
+                    )
+                st.success(f"✅ File ready for download!")
             except Exception as e:
                 st.error(f"❌ Export failed: {e}")
         
@@ -220,8 +229,16 @@ def main():
                     st.session_state.suite_name,
                     is_regression=True
                 )
-                st.success(f"✅ Exported {len(test_cases)} tests")
-                st.info(f"📁 {output_path}")
+                # Provide download button
+                with open(output_path, "rb") as file:
+                    st.download_button(
+                        label="⬇️ Download Regression Tests",
+                        data=file.read(),
+                        file_name=os.path.basename(output_path),
+                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        use_container_width=True
+                    )
+                st.success(f"✅ Exported {len(test_cases)} regression tests!")
             except Exception as e:
                 st.error(f"❌ Export failed: {e}")
         
@@ -517,7 +534,16 @@ def main():
                     
                     try:
                         export_results_to_excel_with_sheets(st.session_state.results, output_path)
-                        st.success(f"✓ Exported to {output_path}")
+                        # Provide download button
+                        with open(output_path, "rb") as file:
+                            st.download_button(
+                                label="⬇️ Download Multi-Sheet Excel",
+                                data=file.read(),
+                                file_name=os.path.basename(output_path),
+                                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                                use_container_width=True
+                            )
+                        st.success(f"✓ File ready for download!")
                         st.info("""
                         **Export includes 3 sheets:**
                         - Sheet 1: All Test Cases
@@ -541,7 +567,16 @@ def main():
                     
                     try:
                         export_test_cases_user_format(test_cases, output_path)
-                        st.success(f"✓ Exported to {output_path}")
+                        # Provide download button
+                        with open(output_path, "rb") as file:
+                            st.download_button(
+                                label="⬇️ Download User Format Excel",
+                                data=file.read(),
+                                file_name=os.path.basename(output_path),
+                                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                                use_container_width=True
+                            )
+                        st.success(f"✓ File ready for download!")
                         st.info("""
                         **Columns:** Test Case ID | Layer | Test Case Scenario | 
                         Test Case | Pre-Condition | Test Case Type | 
