@@ -30,16 +30,16 @@ class Config:
     # Hybrid Scoring Weights (Semantic + LLM)
     # Semantic weight: Embedding-based similarity (fast, reliable for exact matches)
     # LLM weight: Context-based similarity (catches semantic equivalence)
-    SEMANTIC_WEIGHT: float = float(os.getenv("SEMANTIC_WEIGHT", "0.60"))  # 60%
-    LLM_WEIGHT: float = float(os.getenv("LLM_WEIGHT", "0.40"))  # 40%
+    SEMANTIC_WEIGHT: float = float(os.getenv("SEMANTIC_WEIGHT", "0.80"))  # 80% - Increased for speed
+    LLM_WEIGHT: float = float(os.getenv("LLM_WEIGHT", "0.20"))  # 20% - Reduced for speed
     
     # RAG Configuration
-    RAG_TOP_K: int = int(os.getenv("RAG_TOP_K", "10"))  # Number of similar cases to retrieve
+    RAG_TOP_K: int = int(os.getenv("RAG_TOP_K", "5"))  # Reduced from 10 to 5 for faster retrieval
     
     # Test Case Generation Configuration
-    USE_PARALLEL_GENERATION: bool = os.getenv("USE_PARALLEL_GENERATION", "false").lower() == "true"
-    PARALLEL_BATCH_SIZE: int = 3  # Number of parallel batches
-    BATCH_TIMEOUT_SECONDS: int = 60  # Timeout per batch
+    USE_PARALLEL_GENERATION: bool = os.getenv("USE_PARALLEL_GENERATION", "true").lower() == "true"  # Enable parallel
+    PARALLEL_BATCH_SIZE: int = 5  # Increased from 3 to 5
+    BATCH_TIMEOUT_SECONDS: int = 45  # Reduced from 60 to 45
     
     # Test Case Generation Limits
     MIN_TEST_CASES: int = int(os.getenv("MIN_TEST_CASES", "8"))

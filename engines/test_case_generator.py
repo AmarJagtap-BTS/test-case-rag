@@ -185,15 +185,16 @@ Business Rules:
             print(f"🔍 DEBUG - Using BASIC PROMPTS")
         
         try:
-            # Call Azure OpenAI
+            # Call Azure OpenAI with optimized settings
             response = self.client.chat.completions.create(
                 model=self.deployment,
                 messages=[
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_prompt}
                 ],
-                temperature=0.3,  # Lower temperature for more consistent JSON formatting
-                max_tokens=16000  # Increased to handle up to 25 detailed test cases
+                temperature=0.2,  # Reduced from 0.3 for faster, more deterministic responses
+                max_tokens=12000,  # Reduced from 16000 - sufficient for most cases
+                timeout=30  # 30 second timeout for faster failure detection
             )
             
             # Check if response was truncated
