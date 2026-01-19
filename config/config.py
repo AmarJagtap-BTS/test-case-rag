@@ -23,7 +23,7 @@ class Config:
     CHROMA_PERSIST_DIRECTORY: str = os.getenv("CHROMA_PERSIST_DIRECTORY", "./chroma_db")
     
     # Similarity Thresholds
-    THRESHOLD_SAME: float = float(os.getenv("THRESHOLD_SAME", "0.85"))
+    THRESHOLD_SAME: float = float(os.getenv("THRESHOLD_SAME", "0.99"))
     THRESHOLD_ADDON_MIN: float = float(os.getenv("THRESHOLD_ADDON_MIN", "0.60"))
     THRESHOLD_ADDON_MAX: float = float(os.getenv("THRESHOLD_ADDON_MAX", "0.85"))
     
