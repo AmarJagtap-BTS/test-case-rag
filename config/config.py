@@ -38,7 +38,7 @@ class Config:
     
     # Test Case Generation Configuration
     USE_PARALLEL_GENERATION: bool = os.getenv("USE_PARALLEL_GENERATION", "true").lower() == "true"  # Enable parallel
-    PARALLEL_BATCH_SIZE: int = 5  # Increased from 3 to 5
+    PARALLEL_BATCH_SIZE: int = 3  # Increased from 3 to 5
     BATCH_TIMEOUT_SECONDS: int = 45  # Reduced from 60 to 45
     
     # Test Case Generation Limits
@@ -47,14 +47,14 @@ class Config:
     DEFAULT_TEST_CASES: int = int(os.getenv("DEFAULT_TEST_CASES", "12"))
     
     # Test Case Type Distribution (as percentages 0.0-1.0)
-    POSITIVE_MIN_PERCENT: float = float(os.getenv("POSITIVE_MIN_PERCENT", "0.40"))
-    POSITIVE_MAX_PERCENT: float = float(os.getenv("POSITIVE_MAX_PERCENT", "0.40"))
+    POSITIVE_MIN_PERCENT: float = float(os.getenv("POSITIVE_MIN_PERCENT", "0.50"))
+    POSITIVE_MAX_PERCENT: float = float(os.getenv("POSITIVE_MAX_PERCENT", "0.50"))
     
-    NEGATIVE_MIN_PERCENT: float = float(os.getenv("NEGATIVE_MIN_PERCENT", "0.50"))
-    NEGATIVE_MAX_PERCENT: float = float(os.getenv("NEGATIVE_MAX_PERCENT", "0.50"))
+    NEGATIVE_MIN_PERCENT: float = float(os.getenv("NEGATIVE_MIN_PERCENT", "0.30"))
+    NEGATIVE_MAX_PERCENT: float = float(os.getenv("NEGATIVE_MAX_PERCENT", "0.30"))
     
-    UI_MIN_PERCENT: float = float(os.getenv("UI_MIN_PERCENT", "0.10"))
-    UI_MAX_PERCENT: float = float(os.getenv("UI_MAX_PERCENT", "0.10"))
+    UI_MIN_PERCENT: float = float(os.getenv("UI_MIN_PERCENT", "0.20"))
+    UI_MAX_PERCENT: float = float(os.getenv("UI_MAX_PERCENT", "0.20"))
     
     SECURITY_MIN_PERCENT: float = float(os.getenv("SECURITY_MIN_PERCENT", "0.00"))
     SECURITY_MAX_PERCENT: float = float(os.getenv("SECURITY_MAX_PERCENT", "0.00"))
