@@ -38,7 +38,7 @@ class Config:
     
     # Test Case Generation Configuration
     USE_PARALLEL_GENERATION: bool = os.getenv("USE_PARALLEL_GENERATION", "true").lower() == "true"  # Enable parallel
-    PARALLEL_BATCH_SIZE: int = 3  # Increased from 3 to 5
+    PARALLEL_BATCH_SIZE: int = 10  # Increased from 3 to 5
     BATCH_TIMEOUT_SECONDS: int = 45  # Reduced from 60 to 45
     
     # Test Case Generation Limits
