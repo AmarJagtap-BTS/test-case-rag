@@ -3,7 +3,7 @@ from openai import OpenAI
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-# Read changed files list
+#  Read changed files list
 with open("changed_files.txt", "r") as f:
     files = f.read().splitlines()
 
