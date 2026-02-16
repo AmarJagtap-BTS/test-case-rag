@@ -23,7 +23,11 @@ jobs:
 
       - name: Detect Changed Files
         run: |
-          git diff --name-only ${{ github.event.before }} ${{ github.sha }} > changed_files.txt
+          git fetch --depth=2
+          git diff --name-only HEAD~1 HEAD > changed_files.txt || echo "No previous commit found, using all files"
+          if [ ! -s changed_files.txt ]; then
+            git ls-files '*.py' '*.java' '*.js' > changed_files.txt
+          fi
 
       - name: Generate Documentation
         env:
