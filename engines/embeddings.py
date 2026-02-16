@@ -76,7 +76,7 @@ class EmbeddingGenerator:
         for i in range(0, len(texts), batch_size):
             batch = texts[i:i + batch_size]
             
-            # Check which texts are not in cache
+            # Check which texts  are not in cache
             uncached_texts = [t for t in batch if t not in self.cache]
             
             if uncached_texts:
