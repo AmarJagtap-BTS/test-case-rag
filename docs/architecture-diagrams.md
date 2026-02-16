@@ -1,6 +1,6 @@
 # Project Architecture & Flow Diagrams
 
-*Generated on: Mon Feb 16 17:05:20 IST 2026*
+*Generated on: Mon Feb 16 11:36:27 UTC 2026*
 
 ## Table of Contents
 
@@ -52,171 +52,171 @@ Dependency graph showing relationships between modules:
 
 ```mermaid
 graph TB
-    M0[create_regression_suite]
-    M1[generate_docs]
-    M2[test_user_format_generation]
-    M3[test_distribution]
-    M4[generate_diagrams]
+    M0[test_user_format_generation]
+    M1[create_regression_suite]
+    M2[generate_docs]
+    M3[generate_diagrams]
+    M4[test_distribution]
     subgraph ui_dir[ui]
-        M5[__init__]
-        M6[api]
+        M5[api]
+        M6[__init__]
         M7[app]
     end
-    subgraph core_dir[core]
-        M8[knowledge_base]
-        M9[models]
-        M10[__init__]
-        M11[utils]
-    end
-    subgraph config_dir[config]
-        M12[config]
-        M13[__init__]
-    end
     subgraph tests_dir[tests]
-        M14[test_description_validation]
-        M15[__init__]
-        M16[test_type_positive_negative]
-        M17[test_performance]
-        M18[test_fixes]
-        M19[test_api]
-        M20[test_end_to_end_numbering]
-        M21[test_numbering_fix]
+        M8[test_fixes]
+        M9[test_performance]
+        M10[test_description_validation]
+        M11[__init__]
+        M12[test_type_positive_negative]
+        M13[test_numbering_fix]
+        M14[test_end_to_end_numbering]
+        M15[test_api]
     end
     subgraph engines_dir[engines]
+        M16[embeddings]
+        M17[test_case_updater]
+        M18[__init__]
+        M19[rag_engine]
+        M20[comparison_engine]
+        M21[test_case_generator]
         M22[test_case_manager]
-        M23[__init__]
-        M24[embeddings]
-        M25[rag_engine]
-        M26[context_engineering]
-        M27[test_case_generator]
-        M28[comparison_engine]
-        M29[test_case_updater]
+        M23[context_engineering]
     end
-    subgraph examples_dir[examples]
-        M30[example_context_engineering]
-        M31[import_example]
-        M32[__init__]
-        M33[example]
+    subgraph config_dir[config]
+        M24[__init__]
+        M25[config]
     end
     subgraph scripts_dir[scripts]
-        M34[test_llm_apis]
-        M35[create_excel_template]
-        M36[add_diverse_test_cases]
-        M37[format_test_cases_for_excel]
-        M38[__init__]
+        M26[add_diverse_test_cases]
+        M27[format_test_cases_for_excel]
+        M28[__init__]
+        M29[test_llm_apis]
+        M30[create_excel_template]
     end
-    M1 --> M16
-    M2 --> M16
-    M2 --> M27
-    M2 --> M11
+    subgraph core_dir[core]
+        M31[knowledge_base]
+        M32[models]
+        M33[utils]
+        M34[__init__]
+    end
+    subgraph examples_dir[examples]
+        M35[__init__]
+        M36[import_example]
+        M37[example]
+        M38[example_context_engineering]
+    end
+    M0 --> M12
+    M0 --> M21
+    M0 --> M33
+    M0 --> M25
     M2 --> M12
-    M3 --> M11
     M3 --> M12
-    M4 --> M16
-    M6 --> M16
-    M6 --> M9
-    M6 --> M22
-    M6 --> M12
-    M6 --> M11
-    M7 --> M16
-    M7 --> M9
-    M7 --> M22
+    M4 --> M33
+    M4 --> M25
+    M5 --> M12
+    M5 --> M32
+    M5 --> M22
+    M5 --> M25
+    M5 --> M33
     M7 --> M12
-    M7 --> M11
-    M7 --> M11
-    M7 --> M11
-    M7 --> M11
-    M8 --> M16
-    M8 --> M9
-    M8 --> M11
-    M8 --> M12
-    M8 --> M11
-    M10 --> M9
-    M10 --> M11
-    M10 --> M8
-    M11 --> M0
-    M11 --> M9
-    M11 --> M12
-    M11 --> M16
-    M11 --> M9
-    M12 --> M16
+    M7 --> M32
+    M7 --> M22
+    M7 --> M25
+    M7 --> M33
+    M7 --> M33
+    M7 --> M33
+    M7 --> M33
+    M8 --> M21
+    M8 --> M20
+    M8 --> M32
+    M8 --> M33
+    M9 --> M22
+    M9 --> M32
+    M10 --> M12
+    M10 --> M33
+    M12 --> M12
+    M12 --> M33
+    M12 --> M33
     M13 --> M12
-    M14 --> M16
-    M14 --> M11
-    M16 --> M16
-    M16 --> M11
-    M16 --> M11
-    M17 --> M22
-    M17 --> M9
-    M18 --> M27
-    M18 --> M28
-    M18 --> M9
-    M18 --> M11
-    M20 --> M16
-    M20 --> M11
+    M13 --> M33
+    M13 --> M32
+    M14 --> M12
+    M14 --> M33
+    M14 --> M19
+    M14 --> M21
+    M14 --> M32
+    M16 --> M12
+    M16 --> M25
+    M18 --> M19
+    M18 --> M16
+    M18 --> M20
+    M18 --> M21
+    M18 --> M22
+    M18 --> M23
+    M19 --> M12
+    M19 --> M32
+    M19 --> M16
+    M19 --> M25
+    M20 --> M12
     M20 --> M25
-    M20 --> M27
-    M20 --> M9
-    M21 --> M16
-    M21 --> M11
-    M21 --> M9
-    M22 --> M16
-    M22 --> M9
-    M22 --> M25
-    M22 --> M27
-    M22 --> M28
-    M22 --> M8
+    M20 --> M32
+    M20 --> M16
+    M20 --> M23
+    M20 --> M33
+    M20 --> M1
+    M21 --> M12
+    M21 --> M25
+    M21 --> M32
+    M21 --> M33
+    M21 --> M23
+    M21 --> M1
+    M21 --> M1
     M22 --> M12
-    M22 --> M11
-    M22 --> M11
-    M22 --> M11
+    M22 --> M32
+    M22 --> M19
+    M22 --> M21
+    M22 --> M20
+    M22 --> M31
+    M22 --> M25
+    M22 --> M33
+    M22 --> M33
+    M22 --> M33
+    M23 --> M12
+    M23 --> M32
     M23 --> M25
-    M23 --> M24
-    M23 --> M28
-    M23 --> M27
-    M23 --> M22
-    M23 --> M26
-    M24 --> M16
-    M24 --> M12
-    M25 --> M16
-    M25 --> M9
-    M25 --> M24
+    M24 --> M24
     M25 --> M12
-    M26 --> M16
-    M26 --> M9
     M26 --> M12
-    M27 --> M16
+    M26 --> M33
     M27 --> M12
-    M27 --> M9
-    M27 --> M11
-    M27 --> M26
-    M27 --> M0
-    M27 --> M0
-    M28 --> M16
-    M28 --> M12
-    M28 --> M9
-    M28 --> M24
-    M28 --> M26
-    M28 --> M11
-    M28 --> M0
-    M30 --> M16
-    M30 --> M27
-    M30 --> M25
-    M30 --> M26
-    M31 --> M16
-    M31 --> M22
-    M31 --> M9
-    M31 --> M11
-    M33 --> M16
-    M33 --> M9
-    M33 --> M22
-    M33 --> M11
-    M34 --> M16
-    M36 --> M16
-    M36 --> M11
-    M37 --> M16
-    M37 --> M9
-    M37 --> M8
+    M27 --> M32
+    M27 --> M31
+    M29 --> M12
+    M31 --> M12
+    M31 --> M32
+    M31 --> M33
+    M31 --> M25
+    M31 --> M33
+    M33 --> M1
+    M33 --> M32
+    M33 --> M25
+    M33 --> M12
+    M33 --> M32
+    M34 --> M32
+    M34 --> M33
+    M34 --> M31
+    M36 --> M12
+    M36 --> M22
+    M36 --> M32
+    M36 --> M33
+    M37 --> M12
+    M37 --> M32
+    M37 --> M22
+    M37 --> M33
+    M38 --> M12
+    M38 --> M21
+    M38 --> M19
+    M38 --> M23
 ```
 
 ## Class Diagram
@@ -239,52 +239,58 @@ classDiagram
     }
     class HealthResponse {
     }
+    class EmbeddingGenerator {
+        +__init__()
+        +generate_embedding()
+        +generate_embeddings_batch()
+        +calculate_similarity()
+        +clear_cache()
+    }
+    class RAGEngine {
+        +__init__()
+        +add_test_case()
+        +add_test_cases_batch()
+        +search_similar_test_cases()
+        +get_test_case_by_id()
+    }
+    class ComparisonEngine {
+        +__init__()
+        +compare_test_cases()
+        +_analyze_with_llm()
+        +_calculate_llm_similarity()
+        +_make_decision()
+    }
+    class TestCaseGenerator {
+        +__init__()
+        +generate_from_user_story()
+        +generate_from_text()
+        +_generate_single_request()
+        +_clean_json_content()
+    }
+    class TestCaseManager {
+        +__init__()
+        +_analyze_new_test_case()
+        +_get_recommendation()
+        +_reconstruct_test_case()
+        +process_user_story()
+    }
+    class ContextEngineer {
+        +__init__()
+        +_load_examples()
+        +_load_context_templates()
+        +enhance_generation_prompt()
+        +enhance_comparison_prompt()
+    }
+    class Config {
+        +validate()
+        +create_directories()
+    }
     class KnowledgeBase {
         +__init__()
         +_load_existing_suites()
         +create_test_suite()
         +get_test_suite()
         +add_test_case_to_suite()
-    }
-    class DecisionType {
-        +to_text()
-        +add_test_case()
-        +get_test_case_by_id()
-        +update_test_case()
-    }
-    class TestStep {
-        +to_text()
-        +add_test_case()
-        +get_test_case_by_id()
-        +update_test_case()
-    }
-    class TestCase {
-        +to_text()
-        +add_test_case()
-        +get_test_case_by_id()
-        +update_test_case()
-    }
-    class ComparisonResult {
-        +to_text()
-        +add_test_case()
-        +get_test_case_by_id()
-        +update_test_case()
-    }
-    class TestSuite {
-        +to_text()
-        +add_test_case()
-        +get_test_case_by_id()
-        +update_test_case()
-    }
-    class UserStory {
-        +to_text()
-        +add_test_case()
-        +get_test_case_by_id()
-        +update_test_case()
-    }
-    class Config {
-        +validate()
-        +create_directories()
     }
 ```
 
@@ -354,7 +360,55 @@ flowchart TD
 
 AI-generated comprehensive architecture diagram:
 
+```mermaid
+graph TD
+  %% System Architecture Layers
+  subgraph External_Interfaces
+    direction TB
+    UI_api["ui/api.py\n(7 classes)"]
+    UI_app["ui/app.py\n(2 functions)"]
+  end
 
+  subgraph Core_Functionality
+    direction TB
+    Create_Regression["create_regression_suite.py\n(2 functions)"]
+    Generate_Docs["generate_docs.py\n(0 functions)"]
+    Generate_Diagrams["generate_diagrams.py\n(7 functions)"]
+  end
+
+  subgraph Testing_Modules
+    direction TB
+    Test_User_Format["test_user_format_generation.py\n(0 functions)"]
+    Test_Distribution["test_distribution.py\n(0 functions)"]
+    Test_Fixes["tests/test_fixes.py\n(5 functions)"]
+    Test_Performance["tests/test_performance.py\n(1 function)"]
+  end
+
+  %% Relationships and Data Flow
+
+  %% UI layer uses core functionality
+  UI_app -->|calls functions in| Create_Regression
+  UI_app -->|calls functions in| Generate_Diagrams
+  UI_api -->|instantiates classes in| Create_Regression
+  UI_api -->|instantiates classes in| Generate_Diagrams
+  UI_api -->|provides APIs to| UI_app
+
+  %% Core modules interactions
+  Create_Regression -->|generates data for| Generate_Docs
+  Create_Regression -->|provides input to| Generate_Diagrams
+
+  %% Testing modules validate core & UI
+  Test_User_Format -->|validates| UI_api
+  Test_Distribution -->|validates data from| Create_Regression
+  Test_Fixes -->|tests fixes in| Core_Functionality
+  Test_Fixes -->|tests fixes in| UI_api
+  Test_Performance -->|measures performance of| UI_api
+  Test_Performance -->|measures performance of| Create_Regression
+
+  %% Notes
+  classDef module fill:#f9f,stroke:#333,stroke-width:1px,color:#000,font-weight:bold
+  class UI_api,UI_app,Create_Regression,Generate_Docs,Generate_Diagrams,Test_User_Format,Test_Distribution,Test_Fixes,Test_Performance module
+```
 ## Module Summary
 
 Total Modules: 39
