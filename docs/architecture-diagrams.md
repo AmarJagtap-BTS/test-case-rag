@@ -1,6 +1,6 @@
 # Project Architecture & Flow Diagrams
 
-*Generated on: Mon Feb 16 11:39:19 UTC 2026*
+*Generated on: Mon Feb 16 12:04:55 UTC 2026*
 
 ## Table of Contents
 
@@ -362,78 +362,76 @@ AI-generated comprehensive architecture diagram:
 
 ```mermaid
 graph TD
-  %% System Architecture Layering
-  subgraph CLI Tools
-    A_test_user_format_generation[test_user_format_generation.py\n0 classes, 0 functions]
-    A_create_regression_suite[create_regression_suite.py\n0 classes, 2 functions]
-    A_generate_docs[generate_docs.py\n0 classes, 0 functions]
-    A_generate_diagrams[generate_diagrams.py\n0 classes, 7 functions]
-    A_test_distribution[test_distribution.py\n0 classes, 0 functions]
+  %% System Architecture
+
+  subgraph CLI_Scripts["CLI & Utility Scripts"]
+    A1[test_user_format_generation.py]
+    A2[create_regression_suite.py\n(2 functions)]
+    A3[generate_docs.py]
+    A4[generate_diagrams.py\n(7 functions)]
+    A5[test_distribution.py]
   end
 
-  subgraph UI Layer
-    B_api[ui/api.py\n7 classes, 0 functions]
-    B_init[ui/__init__.py\n0 classes, 0 functions]
-    B_app[ui/app.py\n0 classes, 2 functions]
+  subgraph UI_Module["UI Module"]
+    B1[api.py\n(7 classes)]
+    B2[__init__.py]
+    B3[app.py\n(2 functions)]
   end
 
-  subgraph Tests
-    C_test_fixes[tests/test_fixes.py\n0 classes, 5 functions]
-    C_test_performance[tests/test_performance.py\n0 classes, 1 functions]
+  subgraph Tests_Module["Tests"]
+    C1[test_fixes.py\n(5 functions)]
+    C2[test_performance.py\n(1 function)]
   end
 
-  %% Assume data storage or core modules exist but abstracted
-  subgraph Core Modules
-    D_core_modules[(Other 29 modules, core logic and data processing)]
-  end
+  %% Architecture Relationships
+  A4 --> B1
+  B3 --> B1
+  C1 --> B1
+  C2 --> B1
+  A2 --> B1
 
-  %% System Architecture connections (component interactions)
-  A_create_regression_suite --> D_core_modules
-  A_generate_docs --> D_core_modules
-  A_generate_diagrams --> D_core_modules
-  A_test_distribution --> D_core_modules
-  A_test_user_format_generation --> D_core_modules
+  %% Data Flow
 
-  B_app --> B_api
-  B_api --> D_core_modules
-  B_init --> B_api
+  %% CLI Scripts generate data or diagrams or regression suites that UI or Tests use
+  A1 -- "Generates User Test Formats" --> B3
+  A2 -- "Generates Regression Suites" --> C1
+  A4 -- "Generates Diagrams" --> B3
+  A5 -- "Tests Distribution Data" --> C2
 
-  C_test_fixes --> D_core_modules
-  C_test_performance --> D_core_modules
-  C_test_fixes --> B_api
-  C_test_performance --> B_api
+  %% UI components handle API classes and app interface
+  B3 -- "Uses API Classes" --> B1
 
-  %% Data flow (simplified arrows showing flow direction)
-  A_create_regression_suite -->|Generates| D_core_modules
-  D_core_modules -->|Data & Logic| B_api
-  B_api -->|Provides data to| B_app
-  B_app -->|User interaction| ui_user((User))
+  %% Tests interact with API for validation
+  C1 -- "Test Fixes" --> B1
+  C2 -- "Performance Tests" --> B1
 
-  C_test_fixes -->|Tests| D_core_modules
-  C_test_performance -->|Tests| D_core_modules
+  %% Component Interactions
 
-  A_generate_docs -->|Reads data from| D_core_modules
-  A_generate_diagrams -->|Reads data from| D_core_modules
+  %% UI components interaction
+  B2 -.-> B1
+  B3 --> B2
 
-  %% User interaction
-  ui_user --> B_app
+  %% Tests importing UI API for testing
+  C1 --> B1
+  C2 --> B1
 
-  %% Additional annotations for clarity
-  click A_create_regression_suite "https://example.com/create_regression_suite.py" "Open create_regression_suite.py"
-  click B_api "https://example.com/ui/api.py" "Open ui/api.py"
-  click C_test_fixes "https://example.com/tests/test_fixes.py" "Open tests/test_fixes.py"
+  %% CLI scripts interact with API or UI app for generation or test triggers
+  A2 --> B1
+  A4 --> B3
 
-  classDef core fill:#f9f,stroke:#333,stroke-width:1px;
-  classDef ui fill:#bbf,stroke:#333,stroke-width:1px;
-  classDef cli fill:#bfb,stroke:#333,stroke-width:1px;
-  classDef tests fill:#fbf,stroke:#333,stroke-width:1px;
+  %% Legend
+  classDef scripts fill:#f9f,stroke:#333,stroke-width:1px,color:#000,font-weight:bold
+  classDef ui fill:#bbf,stroke:#333,stroke-width:1px,color:#000,font-weight:bold
+  classDef tests fill:#bfb,stroke:#333,stroke-width:1px,color:#000,font-weight:bold
 
-  class D_core_modules core;
-  class B_api,B_init,B_app ui;
-  class A_test_user_format_generation,A_create_regression_suite,A_generate_docs,A_generate_diagrams,A_test_distribution cli;
-  class C_test_fixes,C_test_performance tests;
+  class A1,A2,A3,A4,A5 scripts
+  class B1,B2,B3 ui
+  class C1,C2 tests
 
+  %% Title and notes
+  %% System Architecture and Data Flow with Components interactions between CLI scripts, UI module, and Tests module
 ```
+
 ## Module Summary
 
 Total Modules: 39
