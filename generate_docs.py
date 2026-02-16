@@ -1,7 +1,11 @@
 import os
-from openai import OpenAI
+from openai import AzureOpenAI
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = AzureOpenAI(
+    api_key=os.getenv("AZURE_OPENAI_API_KEY", ""),
+    api_version=os.getenv("AZURE_OPENAI_API_VERSION", "2025-01-01-preview"),
+    azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT", "")
+)
 
 #  Read changed files list
 with open("changed_files.txt", "r") as f:
@@ -15,7 +19,7 @@ for file in files:
             code = code_file.read()
 
         response = client.chat.completions.create(
-            model="gpt-4o-mini",
+            model=os.getenv("AZURE_OPENAI_DEPLOYMENT", "gpt-4.1-mini"),
             messages=[
                 {"role": "system", "content": "You are a senior software architect."},
                 {"role": "user", "content": f"Generate documentation for this code:\n{code}"}
@@ -23,7 +27,7 @@ for file in files:
         )
 
         doc_content += f"## File: {file}\n"
-        doc_content += response.choices[0].message.content
+        doc_content += response.choices[0].message.content or ""
         doc_content += "\n\n"
 
 # Create docs folder if not exists
