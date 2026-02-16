@@ -38,7 +38,7 @@ def calculate_test_distribution(num_test_cases: int) -> Dict[str, Any]:
     # Adjust if total exceeds num_test_cases
     total = positive_count + negative_count + ui_count + security_count + edge_case_count
     if total > num_test_cases:
-        # Reduce positive count to fit
+        # Reduce positive count to  fit
         positive_count = max(1, num_test_cases - (negative_count + ui_count + security_count + edge_case_count))
     
     # Format distribution string for prompt
