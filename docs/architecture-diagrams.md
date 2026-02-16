@@ -1,6 +1,6 @@
 # Project Architecture & Flow Diagrams
 
-*Generated on: Mon Feb 16 11:36:27 UTC 2026*
+*Generated on: Mon Feb 16 11:39:19 UTC 2026*
 
 ## Table of Contents
 
@@ -362,52 +362,77 @@ AI-generated comprehensive architecture diagram:
 
 ```mermaid
 graph TD
-  %% System Architecture Layers
-  subgraph External_Interfaces
-    direction TB
-    UI_api["ui/api.py\n(7 classes)"]
-    UI_app["ui/app.py\n(2 functions)"]
+  %% System Architecture Layering
+  subgraph CLI Tools
+    A_test_user_format_generation[test_user_format_generation.py\n0 classes, 0 functions]
+    A_create_regression_suite[create_regression_suite.py\n0 classes, 2 functions]
+    A_generate_docs[generate_docs.py\n0 classes, 0 functions]
+    A_generate_diagrams[generate_diagrams.py\n0 classes, 7 functions]
+    A_test_distribution[test_distribution.py\n0 classes, 0 functions]
   end
 
-  subgraph Core_Functionality
-    direction TB
-    Create_Regression["create_regression_suite.py\n(2 functions)"]
-    Generate_Docs["generate_docs.py\n(0 functions)"]
-    Generate_Diagrams["generate_diagrams.py\n(7 functions)"]
+  subgraph UI Layer
+    B_api[ui/api.py\n7 classes, 0 functions]
+    B_init[ui/__init__.py\n0 classes, 0 functions]
+    B_app[ui/app.py\n0 classes, 2 functions]
   end
 
-  subgraph Testing_Modules
-    direction TB
-    Test_User_Format["test_user_format_generation.py\n(0 functions)"]
-    Test_Distribution["test_distribution.py\n(0 functions)"]
-    Test_Fixes["tests/test_fixes.py\n(5 functions)"]
-    Test_Performance["tests/test_performance.py\n(1 function)"]
+  subgraph Tests
+    C_test_fixes[tests/test_fixes.py\n0 classes, 5 functions]
+    C_test_performance[tests/test_performance.py\n0 classes, 1 functions]
   end
 
-  %% Relationships and Data Flow
+  %% Assume data storage or core modules exist but abstracted
+  subgraph Core Modules
+    D_core_modules[(Other 29 modules, core logic and data processing)]
+  end
 
-  %% UI layer uses core functionality
-  UI_app -->|calls functions in| Create_Regression
-  UI_app -->|calls functions in| Generate_Diagrams
-  UI_api -->|instantiates classes in| Create_Regression
-  UI_api -->|instantiates classes in| Generate_Diagrams
-  UI_api -->|provides APIs to| UI_app
+  %% System Architecture connections (component interactions)
+  A_create_regression_suite --> D_core_modules
+  A_generate_docs --> D_core_modules
+  A_generate_diagrams --> D_core_modules
+  A_test_distribution --> D_core_modules
+  A_test_user_format_generation --> D_core_modules
 
-  %% Core modules interactions
-  Create_Regression -->|generates data for| Generate_Docs
-  Create_Regression -->|provides input to| Generate_Diagrams
+  B_app --> B_api
+  B_api --> D_core_modules
+  B_init --> B_api
 
-  %% Testing modules validate core & UI
-  Test_User_Format -->|validates| UI_api
-  Test_Distribution -->|validates data from| Create_Regression
-  Test_Fixes -->|tests fixes in| Core_Functionality
-  Test_Fixes -->|tests fixes in| UI_api
-  Test_Performance -->|measures performance of| UI_api
-  Test_Performance -->|measures performance of| Create_Regression
+  C_test_fixes --> D_core_modules
+  C_test_performance --> D_core_modules
+  C_test_fixes --> B_api
+  C_test_performance --> B_api
 
-  %% Notes
-  classDef module fill:#f9f,stroke:#333,stroke-width:1px,color:#000,font-weight:bold
-  class UI_api,UI_app,Create_Regression,Generate_Docs,Generate_Diagrams,Test_User_Format,Test_Distribution,Test_Fixes,Test_Performance module
+  %% Data flow (simplified arrows showing flow direction)
+  A_create_regression_suite -->|Generates| D_core_modules
+  D_core_modules -->|Data & Logic| B_api
+  B_api -->|Provides data to| B_app
+  B_app -->|User interaction| ui_user((User))
+
+  C_test_fixes -->|Tests| D_core_modules
+  C_test_performance -->|Tests| D_core_modules
+
+  A_generate_docs -->|Reads data from| D_core_modules
+  A_generate_diagrams -->|Reads data from| D_core_modules
+
+  %% User interaction
+  ui_user --> B_app
+
+  %% Additional annotations for clarity
+  click A_create_regression_suite "https://example.com/create_regression_suite.py" "Open create_regression_suite.py"
+  click B_api "https://example.com/ui/api.py" "Open ui/api.py"
+  click C_test_fixes "https://example.com/tests/test_fixes.py" "Open tests/test_fixes.py"
+
+  classDef core fill:#f9f,stroke:#333,stroke-width:1px;
+  classDef ui fill:#bbf,stroke:#333,stroke-width:1px;
+  classDef cli fill:#bfb,stroke:#333,stroke-width:1px;
+  classDef tests fill:#fbf,stroke:#333,stroke-width:1px;
+
+  class D_core_modules core;
+  class B_api,B_init,B_app ui;
+  class A_test_user_format_generation,A_create_regression_suite,A_generate_docs,A_generate_diagrams,A_test_distribution cli;
+  class C_test_fixes,C_test_performance tests;
+
 ```
 ## Module Summary
 
