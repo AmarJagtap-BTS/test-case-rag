@@ -19,7 +19,7 @@ def analyze_project_structure():
     }
     
     for root, dirs, files in os.walk('.'):
-        # Skip hidden directories and common non-code directories
+        # Skip hidden directories and  common non-code directories
         dirs[:] = [d for d in dirs if not d.startswith('.') and d not in ['__pycache__', 'node_modules', 'venv', 'env']]
         
         for file in files:
