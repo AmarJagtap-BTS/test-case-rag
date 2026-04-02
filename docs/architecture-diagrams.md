@@ -1,6 +1,6 @@
 # Project Architecture & Flow Diagrams
 
-*Generated on: Tue Feb 24 11:01:21 UTC 2026*
+*Generated on: Thu Apr  2 07:06:18 UTC 2026*
 
 ## Table of Contents
 
@@ -53,170 +53,170 @@ Dependency graph showing relationships between modules:
 ```mermaid
 graph TB
     M0[test_user_format_generation]
-    M1[create_regression_suite]
-    M2[generate_diagrams]
-    M3[generate_docs]
-    M4[test_distribution]
-    subgraph examples_dir[examples]
-        M5[example]
-        M6[import_example]
-        M7[__init__]
-        M8[example_context_engineering]
-    end
+    M1[generate_diagrams]
+    M2[create_regression_suite]
+    M3[test_distribution]
+    M4[generate_docs]
     subgraph engines_dir[engines]
-        M9[embeddings]
+        M5[context_engineering]
+        M6[__init__]
+        M7[test_case_generator]
+        M8[rag_engine]
+        M9[comparison_engine]
         M10[test_case_updater]
-        M11[context_engineering]
-        M12[test_case_generator]
-        M13[test_case_manager]
-        M14[rag_engine]
-        M15[__init__]
-        M16[comparison_engine]
-    end
-    subgraph scripts_dir[scripts]
-        M17[add_diverse_test_cases]
-        M18[test_llm_apis]
-        M19[__init__]
-        M20[create_excel_template]
-        M21[format_test_cases_for_excel]
-    end
-    subgraph ui_dir[ui]
-        M22[api]
-        M23[app]
-        M24[__init__]
+        M11[test_case_manager]
+        M12[embeddings]
     end
     subgraph core_dir[core]
-        M25[utils]
-        M26[__init__]
-        M27[models]
-        M28[knowledge_base]
+        M13[__init__]
+        M14[utils]
+        M15[knowledge_base]
+        M16[models]
     end
-    subgraph tests_dir[tests]
-        M29[test_performance]
-        M30[test_end_to_end_numbering]
-        M31[test_api]
-        M32[test_numbering_fix]
-        M33[test_fixes]
-        M34[test_description_validation]
-        M35[__init__]
-        M36[test_type_positive_negative]
+    subgraph scripts_dir[scripts]
+        M17[format_test_cases_for_excel]
+        M18[__init__]
+        M19[add_diverse_test_cases]
+        M20[create_excel_template]
+        M21[test_llm_apis]
     end
     subgraph config_dir[config]
-        M37[config]
-        M38[__init__]
+        M22[__init__]
+        M23[config]
     end
-    M0 --> M36
-    M0 --> M12
-    M0 --> M25
-    M0 --> M37
-    M2 --> M36
-    M3 --> M36
-    M4 --> M25
-    M4 --> M37
-    M5 --> M36
-    M5 --> M27
-    M5 --> M13
-    M5 --> M25
-    M6 --> M36
-    M6 --> M13
-    M6 --> M27
-    M6 --> M25
-    M8 --> M36
+    subgraph tests_dir[tests]
+        M24[__init__]
+        M25[test_performance]
+        M26[test_api]
+        M27[test_description_validation]
+        M28[test_numbering_fix]
+        M29[test_type_positive_negative]
+        M30[test_fixes]
+        M31[test_end_to_end_numbering]
+    end
+    subgraph ui_dir[ui]
+        M32[__init__]
+        M33[api]
+        M34[app]
+    end
+    subgraph examples_dir[examples]
+        M35[__init__]
+        M36[example_context_engineering]
+        M37[example]
+        M38[import_example]
+    end
+    M0 --> M29
+    M0 --> M7
+    M0 --> M14
+    M0 --> M23
+    M1 --> M29
+    M3 --> M14
+    M3 --> M23
+    M4 --> M29
+    M5 --> M29
+    M5 --> M16
+    M5 --> M23
+    M6 --> M8
+    M6 --> M12
+    M6 --> M9
+    M6 --> M7
+    M6 --> M11
+    M6 --> M5
+    M7 --> M29
+    M7 --> M23
+    M7 --> M16
+    M7 --> M14
+    M7 --> M5
+    M7 --> M2
+    M7 --> M2
+    M8 --> M29
+    M8 --> M16
     M8 --> M12
-    M8 --> M14
-    M8 --> M11
-    M9 --> M36
-    M9 --> M37
-    M11 --> M36
-    M11 --> M27
-    M11 --> M37
-    M12 --> M36
-    M12 --> M37
-    M12 --> M27
-    M12 --> M25
-    M12 --> M11
-    M12 --> M1
-    M12 --> M1
-    M13 --> M36
-    M13 --> M27
-    M13 --> M14
-    M13 --> M12
+    M8 --> M23
+    M9 --> M29
+    M9 --> M23
+    M9 --> M16
+    M9 --> M12
+    M9 --> M5
+    M9 --> M14
+    M9 --> M2
+    M11 --> M29
+    M11 --> M16
+    M11 --> M8
+    M11 --> M7
+    M11 --> M9
+    M11 --> M15
+    M11 --> M23
+    M11 --> M14
+    M11 --> M14
+    M11 --> M14
+    M12 --> M29
+    M12 --> M23
     M13 --> M16
-    M13 --> M28
-    M13 --> M37
-    M13 --> M25
-    M13 --> M25
-    M13 --> M25
-    M14 --> M36
-    M14 --> M27
-    M14 --> M9
-    M14 --> M37
-    M15 --> M14
-    M15 --> M9
+    M13 --> M14
+    M13 --> M15
+    M14 --> M2
+    M14 --> M16
+    M14 --> M23
+    M14 --> M29
+    M14 --> M16
+    M15 --> M29
     M15 --> M16
-    M15 --> M12
-    M15 --> M13
-    M15 --> M8
-    M16 --> M36
-    M16 --> M37
-    M16 --> M27
-    M16 --> M9
-    M16 --> M11
-    M16 --> M25
-    M16 --> M1
-    M17 --> M36
-    M17 --> M25
-    M18 --> M36
-    M21 --> M36
-    M21 --> M27
-    M21 --> M28
-    M22 --> M36
-    M22 --> M27
-    M22 --> M13
-    M22 --> M37
-    M22 --> M25
-    M23 --> M36
-    M23 --> M27
-    M23 --> M13
-    M23 --> M37
-    M23 --> M25
-    M23 --> M25
-    M23 --> M25
-    M23 --> M25
-    M25 --> M1
-    M25 --> M27
-    M25 --> M37
-    M25 --> M36
-    M25 --> M27
-    M26 --> M27
-    M26 --> M25
-    M26 --> M28
-    M28 --> M36
-    M28 --> M27
-    M28 --> M25
-    M28 --> M37
-    M28 --> M25
-    M29 --> M13
-    M29 --> M27
-    M30 --> M36
-    M30 --> M25
+    M15 --> M14
+    M15 --> M23
+    M15 --> M14
+    M17 --> M29
+    M17 --> M16
+    M17 --> M15
+    M19 --> M29
+    M19 --> M14
+    M21 --> M29
+    M22 --> M22
+    M23 --> M29
+    M25 --> M11
+    M25 --> M16
+    M27 --> M29
+    M27 --> M14
+    M28 --> M29
+    M28 --> M14
+    M28 --> M16
+    M29 --> M29
+    M29 --> M14
+    M29 --> M14
+    M30 --> M7
+    M30 --> M9
+    M30 --> M16
     M30 --> M14
-    M30 --> M12
-    M30 --> M27
-    M32 --> M36
-    M32 --> M25
-    M32 --> M27
-    M33 --> M12
+    M31 --> M29
+    M31 --> M14
+    M31 --> M8
+    M31 --> M7
+    M31 --> M16
+    M33 --> M29
     M33 --> M16
-    M33 --> M27
-    M33 --> M25
-    M34 --> M36
-    M34 --> M25
-    M36 --> M36
-    M36 --> M25
-    M36 --> M25
-    M37 --> M36
-    M38 --> M37
+    M33 --> M11
+    M33 --> M23
+    M33 --> M14
+    M34 --> M29
+    M34 --> M16
+    M34 --> M11
+    M34 --> M23
+    M34 --> M14
+    M34 --> M14
+    M34 --> M14
+    M34 --> M14
+    M36 --> M29
+    M36 --> M7
+    M36 --> M8
+    M36 --> M5
+    M37 --> M29
+    M37 --> M16
+    M37 --> M11
+    M37 --> M14
+    M38 --> M29
+    M38 --> M11
+    M38 --> M16
+    M38 --> M14
 ```
 
 ## Class Diagram
@@ -225,13 +225,6 @@ Main classes and their methods:
 
 ```mermaid
 classDiagram
-    class EmbeddingGenerator {
-        +__init__()
-        +generate_embedding()
-        +generate_embeddings_batch()
-        +calculate_similarity()
-        +clear_cache()
-    }
     class ContextEngineer {
         +__init__()
         +_load_examples()
@@ -245,13 +238,6 @@ classDiagram
         +generate_from_text()
         +_generate_single_request()
         +_clean_json_content()
-    }
-    class TestCaseManager {
-        +__init__()
-        +_analyze_new_test_case()
-        +_get_recommendation()
-        +_reconstruct_test_case()
-        +process_user_story()
     }
     class RAGEngine {
         +__init__()
@@ -267,19 +253,26 @@ classDiagram
         +_calculate_llm_similarity()
         +_make_decision()
     }
-    class RequirementTextRequest {
+    class TestCaseManager {
+        +__init__()
+        +_analyze_new_test_case()
+        +_get_recommendation()
+        +_reconstruct_test_case()
+        +process_user_story()
     }
-    class UserStoryRequest {
+    class EmbeddingGenerator {
+        +__init__()
+        +generate_embedding()
+        +generate_embeddings_batch()
+        +calculate_similarity()
+        +clear_cache()
     }
-    class ProcessingResult {
-    }
-    class ApplyDecisionRequest {
-    }
-    class ExportRequest {
-    }
-    class FilteredExportRequest {
-    }
-    class HealthResponse {
+    class KnowledgeBase {
+        +__init__()
+        +_load_existing_suites()
+        +create_test_suite()
+        +get_test_suite()
+        +add_test_case_to_suite()
     }
     class DecisionType {
         +to_text()
@@ -292,6 +285,36 @@ classDiagram
         +add_test_case()
         +get_test_case_by_id()
         +update_test_case()
+    }
+    class TestCase {
+        +to_text()
+        +add_test_case()
+        +get_test_case_by_id()
+        +update_test_case()
+    }
+    class ComparisonResult {
+        +to_text()
+        +add_test_case()
+        +get_test_case_by_id()
+        +update_test_case()
+    }
+    class TestSuite {
+        +to_text()
+        +add_test_case()
+        +get_test_case_by_id()
+        +update_test_case()
+    }
+    class UserStory {
+        +to_text()
+        +add_test_case()
+        +get_test_case_by_id()
+        +update_test_case()
+    }
+    class Config {
+        +validate()
+        +create_directories()
+    }
+    class RequirementTextRequest {
     }
 ```
 
@@ -363,65 +386,64 @@ AI-generated comprehensive architecture diagram:
 
 ```mermaid
 flowchart TD
-  %% System Architecture %%
-  subgraph System_Architecture["System Architecture"]
-
-    subgraph Examples["Examples Module"]
-      direction TB
-      EX1["example.py\n(0 classes, 2 functions)"]
-      EX2["import_example.py\n(0 classes, 3 functions)"]
-      EX3["example_context_engineering.py\n(0 classes, 3 functions)"]
-      EX_INIT["__init__.py\n(0 classes, 0 functions)"]
+    %% System Architecture & Components
+    subgraph User Interface Layer
+        TUG[test_user_format_generation.py]
+        GD[generate_diagrams.py]
+        CRS[create_regression_suite.py]
+        TD[test_distribution.py]
+        GDocs[generate_docs.py]
     end
 
-    subgraph Engines["Engines Module"]
-      direction TB
-      EMBEDDINGS["embeddings.py\n(1 class, 5 functions)"]
+    subgraph Engines Layer
+        CE[comparison_engine.py]
+        RAG[rag_engine.py]
+        TCG[test_case_generator.py]
+        CEg[context_engineering.py]
     end
 
-    subgraph CoreScripts["Core Scripts"]
-      direction TB
-      CREATE_REG["create_regression_suite.py\n(0 classes, 2 functions)"]
-      GEN_DIAGRAMS["generate_diagrams.py\n(0 classes, 7 functions)"]
-      GEN_DOCS["generate_docs.py\n(0 classes, 0 functions)"]
-      TEST_USER_FORMAT["test_user_format_generation.py\n(0 classes, 0 functions)"]
-      TEST_DISTRIBUTION["test_distribution.py\n(0 classes, 0 functions)"]
-    end
+    %% Relationships - Module to Engines (Component Interactions)
+    TUG -->|Uses| TCG
+    GD -->|Uses| RAG
+    GD -->|Uses| CE
+    GD -->|Uses| CEg
+    CRS -->|Uses| TCG
+    CRS -->|Uses| CE
+    CRS -->|Uses| RAG
+    TD -->|Tests output of| CEg
+    GD -->|Generates docs on| CEg
+    GDocs -->|Documents Engines| Engines_Layer
+    click CE "engines/comparison_engine.py"
+    click RAG "engines/rag_engine.py"
+    click TCG "engines/test_case_generator.py"
+    click CEg "engines/context_engineering.py"
 
-  end
+    %% Data flow
+    TUG -- "Generates User Format" --> TCG
+    TCG -- "Generates Test Cases" --> CE
+    CE -- "Compares Data / Results" --> RAG
+    RAG -- "Retrieves & Aggregates Data" --> CEg
+    CEg -- "Context Engineering" --> GD
+    GD -- "Diagram Output" --> User
+    CRS -- "Creates Regression Suites" --> CE & RAG & TCG
+    TD -- "Tests Distributions" --> CEg
+    GDocs -- "Generates Documentation" --> User
 
-  %% Data Flow %%
-  %% Data flows from examples to engines and core scripts for generation and tests %%
-  EX1 -->|data/input examples| EMBEDDINGS
-  EX2 -->|data/import examples| EMBEDDINGS
-  EX3 -->|context data examples| EMBEDDINGS
+    %% High-level boundaries
+    classDef ui fill:#f9f,stroke:#333,stroke-width:1px;
+    classDef engines fill:#bbf,stroke:#333,stroke-width:1px;
+    class TUG,GD,CRS,TD,GDocs ui
+    class CE,RAG,TCG,CEg engines
 
-  EMBEDDINGS -->|processed embeddings| CREATE_REG
-  EMBEDDINGS -->|embedding data| GEN_DIAGRAMS
-
-  CREATE_REG -->|regression suites| GEN_DOCS
-  GEN_DIAGRAMS -->|diagrams| GEN_DOCS
-
-  TEST_USER_FORMAT -.->|validates format| GEN_DOCS
-  TEST_DISTRIBUTION -.->|validates data| CREATE_REG
-
-  %% Component Interactions %%
-  GEN_DOCS -->|documentation| EX_INIT
-  CREATE_REG -->|uses embeddings| EMBEDDINGS
-  GEN_DIAGRAMS -->|reads data| CREATE_REG
-
-  %% Legends %%
-  classDef module fill:#f9f,stroke:#333,stroke-width:1px
-  class ExampleMod module
-  class EngineMod module
-  class CoreMod module
-
-  class EX1,EX2,EX3,EX_INIT ExampleMod
-  class EMBEDDINGS EngineMod
-  class CREATE_REG,GEN_DIAGRAMS,GEN_DOCS,TEST_USER_FORMAT,TEST_DISTRIBUTION CoreMod
+    %% Notes for completeness
+    NoteEngines Engines Layer is the core logic processing unit, containing 4 main engines, each encapsulated in one class with multiple functions.
+    NoteUI UI Layer scripts mostly function-driven entry points orchestrating engines and handling testing, documentation, and diagram generation.
 
 ```
-
+This diagram defines three views:
+1. System architecture: two layers - User Interface scripts and Engines (core logic).
+2. Data flow: shows directional arrows for data and control flow.
+3. Component interactions: labeled edges describe usage and testing relationships among modules.
 ## Module Summary
 
 Total Modules: 39
