@@ -1,6 +1,6 @@
 # Project Architecture & Flow Diagrams
 
-*Generated on: Mon Jun 29 05:42:30 UTC 2026*
+*Generated on: Mon Jun 29 05:55:55 UTC 2026*
 
 ## Table of Contents
 
@@ -355,88 +355,102 @@ flowchart TD
 AI-generated comprehensive architecture diagram:
 
 ```mermaid
-flowchart TD
-    %% System Architecture and Components
-    subgraph Core ["core"]
-        direction TB
-        models["models.py\n6 classes, 4 functions"]
-        utils["utils.py\n0 classes, 21 functions"]
-        kb["knowledge_base.py\n1 class, 11 functions"]
-    end
+graph TD
+  %% System Architecture: Modules as components, grouped by folder
 
-    subgraph Scripts ["scripts"]
-        direction TB
-        scripts_init["__init__.py"]
-    end
+  subgraph Root_Files
+    TD_test_distribution[test_distribution.py]
+    TD_test_user_format_generation[test_user_format_generation.py]
+    TD_generate_diagrams[generate_diagrams.py]
+    TD_generate_docs[generate_docs.py]
+    TD_create_regression_suite[create_regression_suite.py]
+  end
 
-    subgraph Root_Files ["Root Modules"]
-        direction TB
-        test_dist["test_distribution.py\n0 classes, 0 functions"]
-        test_user_format["test_user_format_generation.py\n0 classes, 0 functions"]
-        gen_diagrams["generate_diagrams.py\n0 classes, 7 functions"]
-        gen_docs["generate_docs.py\n0 classes, 0 functions"]
-        regression_suite["create_regression_suite.py\n0 classes, 2 functions"]
-    end
+  subgraph core["core/"]
+    core_init[__init__.py]
+    core_models[models.py]
+    core_utils[utils.py]
+    core_kb[knowledge_base.py]
+  end
 
-    core_init["core/__init__.py"]
+  subgraph scripts["scripts/"]
+    scripts_init[__init__.py]
+  end
 
-    %% Architecture - show core as central library
-    Root_Files --> core_init
-    Scripts --> core_init
-    core_init --> models
-    core_init --> utils
-    core_init --> kb
+  %% Components with classes and functions
+  %% Indicating key classes and functions for core/models.py and core/knowledge_base.py
 
-    %% Data Flow Annotations
-    %% Assumptions based on typical architecture:
+  %% core/models.py: 6 classes, 4 functions (representative)
+  core_models -- contains --> CM_Class1["Class1"]
+  core_models -- contains --> CM_Class2["Class2"]
+  core_models -- contains --> CM_Class3["Class3"]
+  core_models -- contains --> CM_Class4["Class4"]
+  core_models -- contains --> CM_Class5["Class5"]
+  core_models -- contains --> CM_Class6["Class6"]
+  core_models -- contains --> CM_Func1["Function1()"]
+  core_models -- contains --> CM_Func2["Function2()"]
+  core_models -- contains --> CM_Func3["Function3()"]
+  core_models -- contains --> CM_Func4["Function4()"]
 
-    %% generate_diagrams.py uses core models, kb, utils
-    gen_diagrams --> models
-    gen_diagrams --> kb
-    gen_diagrams --> utils
+  %% core/utils.py: 21 functions - summarize as utility functions block
+  core_utils -- contains --> CU_Utils["21 Functions (Utility methods)"]
 
-    %% create_regression_suite.py uses core models and utils
-    regression_suite --> models
-    regression_suite --> utils
+  %% core/knowledge_base.py: 1 class, 11 functions
+  core_kb -- contains --> CKB_Class1["KnowledgeBase"]
+  core_kb -- contains --> CKB_Funcs["11 Functions"]
 
-    %% test modules depend on core and scripts
-    test_dist --> core_init
-    test_user_format --> core_init
+  %% generate_diagrams.py: 7 functions
+  TD_generate_diagrams -- contains --> GD_Funcs["7 Functions (Diagram Generators)"]
 
-    %% generate_docs.py may depend on core (often true in doc gen)
-    gen_docs --> core_init
+  %% create_regression_suite.py: 2 functions
+  TD_create_regression_suite -- contains --> CR_Funcs["2 Functions (Regression Suite)"]
 
-    %% Scripts/__init__.py links to core_init (maybe helpers or extensions)
-    scripts_init --> core_init
+  %% ROOT test files: 0 classes/functions, likely test scripts
+  TD_test_distribution["test_distribution.py"]
+  TD_test_user_format_generation["test_user_format_generation.py"]
 
-    %% Component Interactions (simplified)
-    models -- provides data classes --> utils
-    kb -- provides knowledge base interfaces --> models
-    kb -- utility functions --> utils
+  %% Subgraph of responsibilities
 
-    %% Data flow paths
-    gen_diagrams -- generates diagrams from --> models
-    gen_diagrams -- queries --> kb
-    gen_diagrams -- uses utils for processing --> utils
+  subgraph "System Architecture"
+    direction LR
+    TD_generate_diagrams --> core_utils
+    TD_create_regression_suite --> core_models
+    TD_create_regression_suite --> core_kb
+    TD_generate_docs --> core_utils
+    TD_generate_docs --> core_models
+    TD_test_distribution -.-> core_utils
+    TD_test_user_format_generation -.-> core_models
+  end
 
-    regression_suite -- creates regression tests using --> models
-    regression_suite -- uses utility functions --> utils
+  %% Data Flow
 
-    test_dist -- runs tests on --> core_init
-    test_user_format -- runs tests on --> core_init
+  %% User or Test scripts --> Core modules --> Utility/KnowledgeBase --> Models
 
-    gen_docs -- generates documentation from --> core_init
+  TD_test_distribution -->|Test data| core_utils
+  TD_test_user_format_generation -->|Format inputs| core_models
+  TD_generate_diagrams -->|Reads data| core_models
+  TD_generate_diagrams -->|Uses utils| core_utils
+  TD_create_regression_suite -->|Regression creation| core_models
+  TD_create_regression_suite -->|Fetch knowledge| core_kb
 
-    %% Additional Notes
-    classDef coreModule fill:#f9f,stroke:#333,stroke-width:2px;
-    class models,utils,kb coreModule;
+  core_kb -->|Knowledge data| core_models
+  core_utils -->|Helper functions| core_models
 
-    classDef scriptModule fill:#bbf,stroke:#333,stroke-width:2px;
-    class scripts_init scriptModule;
+  %% Component interactions and dependencies
 
-    classDef rootModule fill:#bfb,stroke:#333,stroke-width:2px;
-    class test_dist,test_user_format,gen_diagrams,gen_docs,regression_suite rootModule;
+  core_models -->|Use utils| core_utils
+  core_models -->|Refer to knowledge| core_kb
+  core_kb -->|May query utils| core_utils
 
+  %% Scripts components reference core
+
+  scripts_init --> core_init
+
+  %% Legend for diagram clarity
+  classDef module fill:#f9f,stroke:#333,stroke-width:2px;
+  class TD_test_distribution,TD_test_user_format_generation,TD_generate_diagrams,TD_generate_docs,TD_create_regression_suite,module;
+  class core_init,core_models,core_utils,core_kb,module;
+  class scripts_init,module;
 ```
 
 ## Module Summary
